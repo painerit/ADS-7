@@ -4,15 +4,15 @@
 
 template<typename T>
 class TPQueue {
-private :
+ private :
   struct ITEM {
-  T data;
-  ITEM * next;
-  ITEM* prev;
+    T data;
+    ITEM * next;
+    ITEM* prev;
 };
-  TPQueue :: ITEM * create ( const T &) ;
-  ITEM* head ;
-  ITEM* tail ;
+  TPQueue :: ITEM * create(const T &);
+  ITEM* head;
+  ITEM* tail;
  public:
   TPQueue():head(nullptr), tail(nullptr) {}
   void push(const T&);
@@ -25,44 +25,43 @@ struct SYM {
 };
 template<typename T>
 typename TPQueue<T>::ITEM* TPQueue<T>::create(const T& data) {
-  ITEM * item = new ITEM ;
-  item−>data = data ;
-  item−>next = nullptr ;
-  item−>prev = nullptr ;
-  return item ;
+  ITEM * item = new ITEM;
+  item -> data = data;
+  item -> next = nullptr;
+  item -> prev = nullptr;
+  return item;
 }
 template < typename T >
 void TPQueue <T>::push(const T& data) {
-  ITEM * temp = head ;
-  ITEM * item = create ( data ) ;
-  while ( temp && temp−>data.prior >= data.prior )
-    temp = temp−>next ;
-  if (! temp && head ) {
-    tail−>next = item;
-    tail−>next−>prev = tail;
-    tail = item ;
-  } else if (! temp && ! head ) {
+  ITEM * temp = head;
+  ITEM * item = create(data);
+  while (temp && temp -> data.prior >= data.prior )
+    temp = temp -> next ;
+  if (!temp && head) {
+    tail -> next = item;
+    tail -> next -> prev = tail;
+    tail = item;
+  } else if (!temp && !head) {
       head = tail = item;
-  } else if (! temp−>prev ) {
-    temp−>prev = item ;
-    item−>next = temp ;
-    head = item ;
+  } else if (!temp -> prev) {
+    temp -> prev = item;
+    item -> next = temp;
+    head = item;
   } else {
-      temp−>prev−>next = item ;
-      item−>prev = temp−>prev ;
-      item−>next = temp ;
-      temp−>prev = item ;
+      temp -> prev -> next = item;
+      item -> prev = temp -> prev;
+      item -> next = temp;
+      temp -> prev = item;
   }
 }
 template < typename T >
 T TPQueue<T>::pop() {
-  ITEM * temp = tail−>prev ;
-  if ( temp )
-    temp−>next = nullptr ;
-  T data = tail−>data ;
-  delete tail ;
-  tail = temp ;
-  return data ;
-
+  ITEM * temp = head -> next;
+  if (temp)
+    temp -> prev = nullptr;
+  T data = head -> data;
+  delete head;
+  head = temp;
+  return data;
 }
 #endif  // INCLUDE_TPQUEUE_H_
