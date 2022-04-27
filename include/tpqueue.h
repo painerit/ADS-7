@@ -54,7 +54,7 @@ void TPQueue <T>::push(const T& content) {
       tmp -> prev = item;
   }
 }
-tmplate < typename T >
+template < typename T >
 T TPQueue<T>::pop() {
   ITEM * tmp = head -> next;
   if (tmp)
